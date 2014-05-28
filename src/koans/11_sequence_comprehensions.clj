@@ -31,6 +31,5 @@
      (for [
            row [:top :middle :bottom]
            column [:left :middle :right]
-           :when (not= [row column] [:middle :middle])
           ]
        [row column])))

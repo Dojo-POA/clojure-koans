@@ -34,3 +34,4 @@
   (= "longest" (reduce (fn [a b]
                          (if (< (count a) (count b)) b a))
                        ["which" "word" "is" "longest"])))
+

@@ -1,20 +1,42 @@
 (defn is-even? [n]
   (if (= n 0)
-    __
-    (___ (is-even? (dec n)))))
+    true
+    (not (is-even? (dec n)))))
 
-(defn is-even-bigint? [n]
-  (loop [n   n
+(defn tail-even? [n acc]
+  (if (= n 0)
+    acc
+    (tail-even? (dec n) (not acc))))
+
+(defn is-even-bigint? [number]
+  (loop [n   number
          acc true]
     (if (= n 0)
-      __
+      acc
       (recur (dec n) (not acc)))))
 
 (defn recursive-reverse [coll]
-  __)
+  (if (empty? coll)
+    []
+    (conj (recursive-reverse (rest coll)) (first coll))))
+
+(defn recursive-reverse-tail [coll]
+  (loop [c coll acc '()]
+    (if (empty? c)
+      acc
+      (recur (rest c) (conj acc (first c))))))
 
 (defn factorial [n]
-  __)
+  (if (= n 1)
+    1
+    (* n (factorial (dec n)))))
+
+(defn factorial-tail [initial]
+  (loop [n initial
+         acc 1]
+    (if (= n 1)
+      acc
+      (recur (dec n) (* n acc)))))
 
 (meditations
   "Recursion ends with a base case"
@@ -30,7 +52,7 @@
   (= '(1) (recursive-reverse [1]))
 
   "Yet it becomes more difficult the more steps you take"
-  (= '(5 4 3 2 1) (recursive-reverse [1 2 3 4 5]))
+  (= '(5 4 3 2 1) (recursive-reverse-tail [1 2 3 4 5]))
 
   "Simple things may appear simple."
   (= 1 (factorial 1))
@@ -48,4 +70,4 @@
   (< 1000000000000000000000000N (factorial 1000N))
 
   "But what happens when the machine limits you?"
-  (< 1000000000000000000000000N (factorial 100003N)))
+  #_(< 1000000000000000000000000N (factorial-tail 100003N)))
